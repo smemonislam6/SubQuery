@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Category::class)->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->text('description')->nullable();
+            $table->decimal('price', 10, 2);
+            $table->decimal('discount', 5, 2)->default(0);
             $table->timestamps();
         });
     }

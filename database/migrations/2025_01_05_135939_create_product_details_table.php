@@ -15,12 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Product::class)->constrained()->cascadeOnDelete();
             $table->text('description')->nullable();
-            $table->integer('quantity')->nullable();
-            $table->integer('stock')->nullable();
+            $table->integer('quantity')->default(0);
+            $table->integer('stock')->default(0);
             $table->string('image')->nullable();
-            $table->decimal('price', 10, 2);
-            $table->decimal('discount', 10, 2)->nullable();
-            $table->decimal('discount_price', 10, 2)->nullable();            
+            $table->string('sku')->unique();         
             $table->timestamps();
         });
     }

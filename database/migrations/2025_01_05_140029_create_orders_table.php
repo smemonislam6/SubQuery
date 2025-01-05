@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
             $table->string('order_number')->nullable();
-            $table->decimal('total_amount', 10, 2);
+            $table->decimal('total', 10, 2);
             $table->dateTime('order_date');
             $table->string('status')->default('pending');
+            $table->decimal('discount', 5, 2)->default(0);
             $table->timestamps();
         });
     }
